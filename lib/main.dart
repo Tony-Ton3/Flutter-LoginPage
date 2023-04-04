@@ -8,7 +8,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  //continuesly access firebase to our application
+  //continuously access firebase to our application
   runApp(
     const MyApp(),
   );

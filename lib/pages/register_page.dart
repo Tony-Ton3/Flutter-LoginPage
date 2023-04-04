@@ -24,11 +24,31 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async {
-    //
+    //validate email and password is not empty first
+    if (_emailController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Please enter your email'),
+            duration: Duration(seconds: 1)),
+      );
+      return;
+    } else if (_passwordController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Please enter your password'),
+            duration: Duration(seconds: 1)),
+      );
+      return;
+    }
+    //check if password matches confirm password
     if (validatePassword()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match, try again')),
       );
     }
   }
